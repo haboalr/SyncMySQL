@@ -11,11 +11,6 @@ class SyncMySQL extends IPSModule
         "^([A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]+)=([_0-9]+)\+([_A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_0-9]+)([_A-Z])([_0-9]+)\/([A-Z]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]*)-([_A-Za-z0-9]*)-([_A-Za-z0-9]*)-([_A-Za-z0-9]*)-([_A-Za-z0-9]*)$"
     ];
 
-    //https://regex101.com/r/peWokG/4
-    private $bksFormats = [
-        '', //Custom
-        "^([A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_A-Za-z0-9]+)=([_0-9]+)\+([_A-Za-z0-9]+)-([_A-Za-z0-9]+)-([_0-9]+)([_A-Z])([_0-9]+)$"
-    ];
 
     private $tableIdent = [
         [
@@ -260,7 +255,7 @@ class SyncMySQL extends IPSModule
         $this->RegisterPropertyString('Username', 'root');
         $this->RegisterPropertyString('Password', '');
         $this->RegisterPropertyString('Database', 'smartenergybox');
-        $this->RegisterPropertyInteger('Format', 1);
+        $this->RegisterPropertyInteger('Format', 0);
         $this->RegisterPropertyInteger('Interval', 300);
         $this->RegisterPropertyBoolean('SSL', false);
         $this->RegisterPropertyBoolean('SSLDontVerify', false);
@@ -337,9 +332,9 @@ class SyncMySQL extends IPSModule
             }
         }
 
-        //Set format for BKS
-        $data['actions'][1]['items'][0]['popup']['items'][0]['items'][1]['validate'] = $this->bksFormats[$this->ReadPropertyInteger('Format')];
-        $data['actions'][1]['items'][0]['popup']['items'][1]['items'][2]['validate'] = $this->bksFormats[$this->ReadPropertyInteger('Format')];
+        //Allow any characters for BKS values
+        $data['actions'][1]['items'][0]['popup']['items'][0]['items'][1]['validate'] = '';
+        $data['actions'][1]['items'][0]['popup']['items'][1]['items'][2]['validate'] = '';
 
         //Add initial zone and meter options
         if ($this->GetStatus() == IS_ACTIVE) {
