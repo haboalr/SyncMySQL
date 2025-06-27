@@ -93,6 +93,10 @@
                     "caption": "Format",
                     "options": [
                         {
+                            "label": "Custom",
+                            "value": 0
+                        },
+                        {
                             "label": "ABC-P000=000000+G000-00R0/MW-_-_-_-_-_-_-_",
                             "value": 1
                         }
